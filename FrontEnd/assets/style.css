@@ -318,5 +318,27 @@ button:focus
   
 
   #gallery img {
-	width: 150px;
+	width: 75px;
   }
+
+#gallery {
+	display:flex;
+	flex-direction: row;
+	gap:15px;
+	width: 100%;
+	flex-wrap: wrap;
+}
+
+  .gallery-image-container {
+	position: relative;
+  }
+  
+  .gallery-image-delete-icon {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	font-size: 20px;
+	color: red;
+	cursor: pointer;
+  }
+  

@@ -27,9 +27,47 @@ function showModal() {
 
   // Ajout des nouvelles images
   images.forEach(image => {
+    const imgContainer = document.createElement("div");
+    imgContainer.classList.add("gallery-image-container");
+  
     const img = document.createElement("img");
     img.src = image.imageUrl;
-    gallery.appendChild(img);
+    imgContainer.appendChild(img);
+  
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("fa", "fa-trash", "gallery-image-delete-icon");
+    deleteIcon.addEventListener("click", () => {
+      deleteImage(image.id);
+  imgContainer.remove();
+
+      
+      // Code pour supprimer l'image via une requête AJAX ou Fetch
+      function deleteImage(imageId) {
+        fetch(`http://localhost:5678/api/works/${imageId}`, {
+          method: "DELETE"
+        })
+        .then(response => {
+          if (response.ok) {
+            console.log(`Image with id ${imageId} has been deleted`);
+            
+          } else {
+            console.error(`Error deleting image with id ${imageId}`);
+          }
+        })
+
+        
+        .catch(error => {
+          console.error(`Error deleting image with id ${imageId}: ${error}`);
+        });
+      }
+      
+  
+      // Supprimer l'élément HTML correspondant à l'image
+      imgContainer.remove();
+    });
+    imgContainer.appendChild(deleteIcon);
+  
+    gallery.appendChild(imgContainer);
   });
 
   modal.style.display = "block";
@@ -63,6 +101,25 @@ addPhotoBtn.addEventListener("click", () => {
   addPhotoModal.style.display = "block";
 });
 
+addPhotoFormPhotoFile.addEventListener("change", event => {
+  const file = event.target.files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    const imgPreview = document.createElement("img");
+    imgPreview.src = reader.result;
+    imgPreview.style.maxWidth = "100%";
+    imgPreview.style.maxHeight = "200px";
+
+    addPhotoForm.insertBefore(imgPreview, addPhotoFormPhotoFile);
+  });
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+});
+
+
 addPhotoForm.addEventListener("submit", event => {
   event.preventDefault();
   const photoName = addPhotoFormPhotoName.value;
@@ -74,4 +131,3 @@ addPhotoForm.addEventListener("submit", event => {
 
   closeModal(addPhotoModal);
 });
-
