@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<title>Sophie Bluel - Architecte d'intérieur</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="./assets/style.css">
+	<script type="module" src="login.js" crossorigin></script>
+    <script type="module" src="divers.js" crossorigin></script>
+	<script type="module" src="modale.js" crossorigin></script>
+	
+</head>
+<body>
+<header>
+	<h1> <a href="index.html"> Sophie Bluel</a> <span>Architecte d'intérieur</span></h1>
+	<nav>
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li id="loginButton"> <a  href="login.html"> login</a></li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+</header>
+<main>
+	<div class="formulaire_login" id="id_login">
+		<h2>Log in</h2>
+		<form class="contenu_formulaire" id="form_mails"> 
+			<label for="identifiant"><b>E-mail</b></label>
+			<input type="text" placeholder=" " name="identifiant" id="id_identifiants" required>
+	
+			<label for="mdp"><b>Mot de passe</b></label>
+			<input type="password" placeholder=" " name="mdp" id="id_mdp" required>
+			<button class="btn-connexion" type="submit" id="login-form-submit">Se connecter</button> 
+			<p id="error-message"></p>
+		</form>
+		
+		<a href=""> Mot de passe oublié</a>
+	  </div>
+	 
+  
+
+</main>
+
+<footer>
+	<nav>
+		<ul>
+			<li>Mentions Légales</li>
+		</ul>
+	</nav>
+</footer>
+</body>
+</html>

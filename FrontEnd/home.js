@@ -1,4 +1,14 @@
+
+
+const token = localStorage.getItem('token');
+if (token) {
+    
+}
 // Vérification si les travaux sont déjà présents dans le localstorage
+
+
+
+
 let travaux = window.localStorage.getItem('travaux');
 if (travaux === null) {
     // Récupération des travaux depuis l'API
@@ -12,6 +22,8 @@ if (travaux === null) {
     travaux = JSON.parse(travaux);
 }
 
+
+// Fonction pour l'affichage des travaux
 export function affichageTravaux(travaux) {
     for (let i = 0; i < travaux.length; i++) {
         const works = travaux[i];
@@ -78,4 +90,3 @@ boutonTous.addEventListener("click", function () {
     affichageTravaux(travauxToutes);
 });
 
-// Ajout des filtres
