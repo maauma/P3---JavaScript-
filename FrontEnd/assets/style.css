@@ -342,3 +342,17 @@ button:focus
 	cursor: pointer;
   }
   
+  #bandeau{
+	background-color: black;
+	height: 75px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+  }
+
+  #bandeau button {
+	background-color: white;
+	border-radius: 30px;
+	height: 30%;
+  }
