@@ -298,13 +298,26 @@ button:focus
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 80%;
-	max-width: 800px;
+	
+	height: 731px;
+	width: 630px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  }
+
+
+
+  .modal-content h3 {
+	text-align: center;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	font-size: 20px;
   }
   
   .close {
-	color: #aaaaaa;
-	float: right;
+	color: black;
 	font-size: 28px;
 	font-weight: bold;
   }
@@ -318,28 +331,38 @@ button:focus
   
 
   #gallery img {
-	width: 75px;
+	width: 80px;
   }
 
 #gallery {
-	display:flex;
+	display:grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	flex-direction: row;
 	gap:15px;
-	width: 100%;
-	flex-wrap: wrap;
+	margin-bottom: 50px;
+	width: 80%;
+	margin: auto;
 }
 
   .gallery-image-container {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+  }
+
+  .gallery-image-container a {
+	margin-top: 5px;
   }
   
   .gallery-image-delete-icon {
 	position: absolute;
-	top: 5px;
-	left: 5px;
-	font-size: 20px;
-	color: red;
+	top: 50x;
+	right: 10px;
+	font-size: 10px;
+	color: white;
 	cursor: pointer;
+	background-color: #000;
+	padding: 3px;
   }
   
   #bandeau{
@@ -355,4 +378,112 @@ button:focus
 	background-color: white;
 	border-radius: 30px;
 	height: 30%;
+	padding: 15px;
+	text-align: center;
+	align-items: center;
   }
+
+
+  
+
+  /* BACK BUTTON */
+  #addPhotoModal .modal-content {
+	position: relative;
+  }
+  
+  
+  
+
+  #edit {
+	color: black;
+  }
+
+  #modalBtn{
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	background-color: white;
+
+  }
+
+  .bloc_preview {
+	background-color: #E8F1F6;
+	width: 420px;
+	height: 170px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 15px;
+	align-items: center;
+	margin-bottom: 25px;
+  }
+
+  .bloc_preview i {
+	color:red;
+	font-size:58px ;
+  }
+
+  .addPhotoDiv{
+	width: 175px;
+	border-radius: 50px;
+	background-color: #CBD6DC;
+	border: none;
+	font-size: 15px;
+	height: 36px;
+  }
+
+#photoName {
+	display: flex;
+	flex-direction: column;
+	width: 410px;
+	height: 51px;
+	padding-left: 10px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+	gap: 5px;
+	
+}
+
+#photoCategory{
+	display: flex;
+	flex-direction: column;
+	width: 425px;
+	height: 51px;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	border: none;
+
+}
+
+#validatePhoto{
+	border-radius: 50px;
+	width: 240px;
+	height: 36px;
+}
+
+.nav_modale{
+	display: flex;
+	width: 100%;
+	align-items: center;
+}
+
+#backBtn {
+	border: none;
+	background: white;
+}
+
+#backBtn i {
+	font-size: 20px;
+}
+
+#photoCategory {
+	padding-top: 20px;
+	padding-left: 5px;
+}
+
+.admin_mode_edit{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-content: center;
+
+}

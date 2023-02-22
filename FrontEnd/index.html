@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
@@ -13,7 +14,8 @@
 	<script type="module" src="home.js" ></script>
 	<script type="module" src="modale.js" ></script>
 	<script type="module" src="admin.js" ></script>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+	<script src="https://kit.fontawesome.com/fc91445628.js" crossorigin="anonymous"></script>
+
 
 	
 </head>
@@ -43,33 +45,45 @@
 	</section>
 
 	<!-- MODALE -->
-	<button id="modalBtn">Ouvrir la galerie</button>
+	
 
-<div id="myModal" class="modal">
+	<div id="myModal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>Galerie photo</h2>
+    <h3>Galerie photo</h3>
     <div id="gallery"></div>
-    <button id="addPhotoBtn">Ajouter une photo</button>
+    <button id="addPhotoBtn">Ajouter une photo </button>
   </div>
 </div>
 
 <div id="addPhotoModal" class="modal">
+	
   <div class="modal-content">
-    <span class="close">&times;</span>
-    <h2>Ajouter une photo</h2>
+	<div class="nav_modale">
+		<button id="backBtn"><i class="fa fa-arrow-left"></i></button>
+		<span class="close">&times;</span>
+		
+	</div>
+    
+	
+    <h3>Ajouter une photo</h3>
+
+	<div class="bloc_preview">
+		<i class="fa-solid fa-image"></i>
+		<button class="addPhotoDiv" >+ Ajouter photo</button>
+		<p>jpg, png : 4mo max</p>
+	</div>
+
     <form id="addPhotoForm">
-      <label for="photoName">Nom de la photo:</label>
+      <label for="photoName">Titre</label>
       <input type="text" id="photoName" name="photoName"><br>
-      <label for="photoCategory">Catégorie de la photo:</label>
+      <label for="photoCategory">Catégorie</label>
       <select id="photoCategory" name="photoCategory">
         <option value="paysage">Paysage</option>
         <option value="portrait">Portrait</option>
         <option value="nature">Nature</option>
       </select><br>
-      <label for="photoFile">Fichier:</label>
-      <input type="file" id="photoFile" name="photoFile"><br>
-      <button type="submit">Ajouter</button>
+      <button type="submit" id="validatePhoto">Valider</button>
     </form>
   </div>
 </div>
@@ -81,7 +95,11 @@
 	
 
 	<section class="ancreEdit" id="portfolio">
+	<div class="admin_mode_edit">
+		
 		<h2>Mes Projets</h2>
+		<button id="modalBtn">modifier</button>
+	</div>
 		<!-- Filtres -->
 		<div class="filter">
 			<button class="btn-tous">Tous</button>

@@ -4,12 +4,23 @@ const modalBtn = document.getElementById("modalBtn");
 const closeBtns = document.getElementsByClassName("close");
 const addPhotoBtn = document.getElementById("addPhotoBtn");
 const gallery = document.getElementById("gallery");
-
+// 2ème modale pour ajouter une photo
 const addPhotoModal = document.getElementById("addPhotoModal");
+// Formulaire pour titre + catégorie
 const addPhotoForm = document.getElementById("addPhotoForm");
+// Saisie nom de l'image
 const addPhotoFormPhotoName = document.getElementById("photoName");
+// Saisie categorie de la photo
 const addPhotoFormPhotoCategory = document.getElementById("photoCategory");
+// Ajout de la photo
 const addPhotoFormPhotoFile = document.getElementById("photoFile");
+// Bouton de retour
+const backBtn = document.getElementById("backBtn");
+
+const addPhotoButton = document.querySelector(".addPhotoDiv");
+// Récupération de l'élément bloc_preview
+const previewDiv = document.querySelector(".bloc_preview");
+
 
 // Récupération des images depuis l'API
 let images = [];
@@ -20,6 +31,8 @@ fetch("http://localhost:5678/api/works")
     images = data;
   });
 
+
+
 // Fonction pour afficher la fenêtre modale de la galerie
 function showModal() {
   // Suppression des anciennes images
@@ -29,19 +42,27 @@ function showModal() {
   images.forEach(image => {
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("gallery-image-container");
-  
+
+    // Création de l'élément img pour afficher l'image
     const img = document.createElement("img");
     img.src = image.imageUrl;
     imgContainer.appendChild(img);
-  
+
+    // Création de l'élément a pour le lien "éditer"
+  const editLink = document.createElement("a");
+  editLink.id = "edit";
+  editLink.href = `http://localhost:5678/edit/${image.id}`; // Mettre l'URL de la page d'édition
+  editLink.textContent = "éditer";
+  imgContainer.appendChild(editLink);
+
+  // Créatop, de l'icône de supression
     const deleteIcon = document.createElement("i");
     deleteIcon.classList.add("fa", "fa-trash", "gallery-image-delete-icon");
     deleteIcon.addEventListener("click", () => {
       deleteImage(image.id);
   imgContainer.remove();
 
-      
-      // Code pour supprimer l'image via une requête AJAX ou Fetch
+    // Code pour supprimer l'image via une requête AJAX ou Fetch
       function deleteImage(imageId) {
         fetch(`http://localhost:5678/api/works/${imageId}`, {
           method: "DELETE"
@@ -60,7 +81,6 @@ function showModal() {
           console.error(`Error deleting image with id ${imageId}: ${error}`);
         });
       }
-      
   
       // Supprimer l'élément HTML correspondant à l'image
       imgContainer.remove();
@@ -78,16 +98,22 @@ function closeModal(modal) {
   modal.style.display = "none";
 }
 
+backBtn.addEventListener("click", () => {
+  hideModal(addPhotoModal, addPhotoForm);
+  showGallery();
+});
+
 // Événements sur les boutons
 modalBtn.addEventListener("click", showModal);
 
+// Bouton croix pour fermer la modale
 Array.from(closeBtns).forEach(btn => {
   btn.addEventListener("click", () => {
     closeModal(modal);
     closeModal(addPhotoModal);
   });
 });
-
+// Femer la modale en cliquant à l'extérieur de la fenêtre
 window.addEventListener("click", event => {
   if (event.target == modal) {
     closeModal(modal);
@@ -96,38 +122,8 @@ window.addEventListener("click", event => {
     closeModal(addPhotoModal);
   }
 });
-
+// Bouton pour ajouter une photo
 addPhotoBtn.addEventListener("click", () => {
   addPhotoModal.style.display = "block";
 });
 
-addPhotoFormPhotoFile.addEventListener("change", event => {
-  const file = event.target.files[0];
-  const reader = new FileReader();
-
-  reader.addEventListener("load", () => {
-    const imgPreview = document.createElement("img");
-    imgPreview.src = reader.result;
-    imgPreview.style.maxWidth = "100%";
-    imgPreview.style.maxHeight = "200px";
-
-    addPhotoForm.insertBefore(imgPreview, addPhotoFormPhotoFile);
-  });
-
-  if (file) {
-    reader.readAsDataURL(file);
-  }
-});
-
-
-addPhotoForm.addEventListener("submit", event => {
-  event.preventDefault();
-  const photoName = addPhotoFormPhotoName.value;
-  const photoCategory = addPhotoFormPhotoCategory.value;
-  const photoFile = addPhotoFormPhotoFile.files[0];
-
-  // Code pour envoyer la photo au serveur via une requête AJAX ou Fetch
-  // ...
-
-  closeModal(addPhotoModal);
-});
