@@ -56,32 +56,38 @@ function showModal() {
   editLink.textContent = "éditer";
   imgContainer.appendChild(editLink);
 
-  // Créatop, de l'icône de supression
+  // Création de l'icône de supression
     const deleteIcon = document.createElement("i");
     deleteIcon.classList.add("fa", "fa-trash", "gallery-image-delete-icon");
     deleteIcon.addEventListener("click", () => {
       deleteImage(image.id);
   imgContainer.remove();
 
-    // Code pour supprimer l'image via une requête AJAX ou Fetch
-      function deleteImage(imageId) {
-        fetch(`http://localhost:5678/api/works/${imageId}`, {
-          method: "DELETE"
-        })
-        .then(response => {
-          if (response.ok) {
-            console.log(`Image with id ${imageId} has been deleted`);
-            
-          } else {
-            console.error(`Error deleting image with id ${imageId}`);
-          }
-        })
+  // Fonction pour supprimer une image
+function deleteImage(imageId) {
+  const token = localStorage.getItem("token");
+  fetch(`http://localhost:5678/api/works/${imageId}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log(`Image with id ${imageId} has been deleted`);
+      // Supprimer l'élément HTML correspondant à l'image
+      const imgContainer = document.querySelector(`.gallery[data-id="${imageId}"]`);
+      imgContainer.remove();
+    } else {
+      console.error(`Error deleting image with id ${imageId}`);
+    }
+  })
+  .catch(error => {
+    console.error(`Error deleting image with id ${imageId}: ${error}`);
+  });
+}
 
-        
-        .catch(error => {
-          console.error(`Error deleting image with id ${imageId}: ${error}`);
-        });
-      }
+
   
       // Supprimer l'élément HTML correspondant à l'image
       imgContainer.remove();

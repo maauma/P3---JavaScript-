@@ -41,7 +41,6 @@ body.insertBefore(bandeau, header);
 // Suppression des filtres en mode admin
 filter.style.display = 'none';
 
-// Ajout de l'ancre au body
-body.appendChild(ancre);
+
 
 }
