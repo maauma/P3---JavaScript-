@@ -20,6 +20,8 @@ const addPhotoButton = document.querySelector(".addPhotoDiv");
 const previewDiv = document.querySelector(".bloc_preview");
 // Fleche de retour
 const backToGallery = document.getElementById("backBtn");
+// Sélectionne la div "bloc_preview"
+const previewBlock = document.querySelector('.bloc_preview');
 
 
 
@@ -39,10 +41,12 @@ function showModal() {
   // Suppression des anciennes images
   gallery.innerHTML = "";
 
-  // Ajout des nouvelles images
+  // Ajout des nouvelles images dans la modale
   images.forEach(image => {
     const imgContainer = document.createElement("div");
     imgContainer.classList.add("gallery-image-container");
+
+    
 
     // Création de l'élément img pour afficher l'image
     const img = document.createElement("img");
@@ -62,6 +66,12 @@ function showModal() {
     deleteIcon.addEventListener("click", () => {
       deleteImage(image.id);
   imgContainer.remove();
+
+  
+
+
+
+
 
   // Fonction pour supprimer une image
 function deleteImage(imageId) {
@@ -87,6 +97,39 @@ function deleteImage(imageId) {
   });
 }
 
+function uploadImage() {
+  const token = localStorage.getItem("token");
+  const photoName = addPhotoFormPhotoName.value;
+  const photoCategory = addPhotoFormPhotoCategory.value;
+  const photoFile = addPhotoFormPhotoFile.files[0];
+
+  const formData = new FormData();
+  formData.append("photoName", photoName);
+  formData.append("photoCategory", photoCategory);
+  formData.append("photoFile", photoFile);
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log("Image uploaded successfully");
+      // Fermer la fenêtre modale et afficher la galerie
+      hideModal(addPhotoModal, addPhotoForm);
+      showModal();
+    } else {
+      console.error("Error uploading image");
+    }
+  })
+  .catch(error => {
+    console.error(`Error uploading image: ${error}`);
+  });
+}
+
 
   
       // Supprimer l'élément HTML correspondant à l'image
@@ -99,6 +142,46 @@ function deleteImage(imageId) {
 
   modal.style.display = "block";
 }
+
+// Fonction pour envoyer la photo vers l'API
+function uploadImage() {
+  event.preventDefault();
+  const token = localStorage.getItem("token");
+  const photoName = addPhotoFormPhotoName.value;
+  const photoCategory = addPhotoFormPhotoCategory.value;
+  const photoFile = addPhotoFormPhotoFile.files[0];
+
+  const formData = new FormData();
+  formData.append("photoName", photoName);
+  formData.append("photoCategory", photoCategory);
+  formData.append("photoFile", photoFile);
+
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log("Image uploaded successfully");
+      // Fermer la fenêtre modale et afficher la galerie
+      hideModal(addPhotoModal, addPhotoForm);
+      showModal();
+    } else {
+      console.error("Error uploading image");
+    }
+  })
+  .catch(error => {
+    console.error(`Error uploading image: ${error}`);
+  });
+}
+
+
+
+
+
 
 // Fonction pour fermer une fenêtre modale
 function closeModal(modal) {
@@ -141,3 +224,32 @@ addPhotoBtn.addEventListener("click", () => {
   addPhotoModal.style.display = "block";
 });
 
+addPhotoBtn.addEventListener("click", () => {
+  uploadImage();
+});
+
+// Ajoute un événement de clic sur le bouton "addPhotoDiv"
+addPhotoButton.addEventListener('click', () => {
+  // Ouvre la boîte de dialogue de sélection de fichiers
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.multiple = false;
+  input.onchange = (event) => {
+    // Récupère le fichier sélectionné
+    const file = event.target.files[0];
+  // Crée un objet FileReader pour lire le contenu du fichier
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = (event) => {
+    // Crée un élément img pour l'aperçu de l'image
+    const imageElement = document.createElement('img');
+    imageElement.src = event.target.result;
+
+    // Remplace le contenu de la div "bloc_preview" par l'aperçu de l'image
+    previewBlock.innerHTML = '';
+    previewBlock.appendChild(imageElement);
+  };
+};
+input.click();
+});
