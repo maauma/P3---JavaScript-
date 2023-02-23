@@ -2,7 +2,15 @@
 
 const token = localStorage.getItem('token');
 if (token) {
-    
+    const adminModeEdit = document.querySelector(".admin_mode_edit");
+    // Création de l'ancre pour ouvrir la modale
+const ancreModale = document.createElement('button');
+ancreModale.textContent = "modifier";
+
+ancreModale.id = 'modalBtn';
+
+// Ajout de l'ancre
+adminModeEdit.appendChild(ancreModale);
 }
 // Vérification si les travaux sont déjà présents dans le localstorage
 

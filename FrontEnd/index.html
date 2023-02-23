@@ -21,7 +21,7 @@
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<h1> <a href="index.html"> Sophie Bluel</a> <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
@@ -49,9 +49,10 @@
 
 	<div id="myModal" class="modal">
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close" class="close_modal_1">&times;</span>
     <h3>Galerie photo</h3>
     <div id="gallery"></div>
+	<hr class="solid1">
     <button id="addPhotoBtn">Ajouter une photo </button>
   </div>
 </div>
@@ -66,7 +67,7 @@
 	</div>
     
 	
-    <h3>Ajouter une photo</h3>
+    <h3>Ajout photo</h3>
 
 	<div class="bloc_preview">
 		<i class="fa-solid fa-image"></i>
@@ -79,10 +80,11 @@
       <input type="text" id="photoName" name="photoName"><br>
       <label for="photoCategory">Catégorie</label>
       <select id="photoCategory" name="photoCategory">
-        <option value="paysage">Paysage</option>
-        <option value="portrait">Portrait</option>
-        <option value="nature">Nature</option>
+        <option value="paysage">Objets</option>
+        <option value="portrait">Appartements</option>
+        <option value="nature">Hôtels & restaurants</option>
       </select><br>
+	  <hr class="solid2">
       <button type="submit" id="validatePhoto">Valider</button>
     </form>
   </div>
@@ -98,7 +100,6 @@
 	<div class="admin_mode_edit">
 		
 		<h2>Mes Projets</h2>
-		<button id="modalBtn">modifier</button>
 	</div>
 		<!-- Filtres -->
 		<div class="filter">

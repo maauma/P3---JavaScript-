@@ -3,7 +3,7 @@ if (token) {
   const loginElement = document.getElementById('login');
 
 if (localStorage.getItem('token')) {
-  loginElement.textContent = 'Logout';
+  loginElement.textContent = 'logout';
 }
 
 loginElement.addEventListener('click', function() {
@@ -11,7 +11,7 @@ loginElement.addEventListener('click', function() {
     localStorage.removeItem('token');
     location.reload(); // Recharge la page
   }
-  loginElement.textContent = 'Login';
+  loginElement.textContent = 'login';
 });
 
   // Envoie le token avec chaque requête vers le serveur pour authentifier l'utilisateur

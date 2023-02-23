@@ -63,13 +63,20 @@ section {
 	margin: 50px 0
 }
 
+
+
+
 h1{
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+}
+
+h1 a{
+	color: #B1663C;
 }
 
 h1 > span {
@@ -419,8 +426,13 @@ button:focus
   }
 
   .bloc_preview i {
-	color:red;
+	color:#B9C5CC;
 	font-size:58px ;
+  }
+
+  .bloc_preview p {
+	margin-top: -5px;
+	font-size: 11px;
   }
 
   .addPhotoDiv{
@@ -437,10 +449,12 @@ button:focus
 	flex-direction: column;
 	width: 410px;
 	height: 51px;
-	padding-left: 10px;
+	padding-left: 15px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
 	gap: 5px;
+	margin-top: 5px;
+	font-weight: 100;
 	
 }
 
@@ -451,6 +465,7 @@ button:focus
 	height: 51px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 	border: none;
+	margin-top: 5px;
 
 }
 
@@ -458,12 +473,16 @@ button:focus
 	border-radius: 50px;
 	width: 240px;
 	height: 36px;
+
+
+
 }
 
 .nav_modale{
 	display: flex;
 	width: 100%;
 	align-items: center;
+	justify-content: space-between;
 }
 
 #backBtn {
@@ -477,7 +496,7 @@ button:focus
 
 #photoCategory {
 	padding-top: 20px;
-	padding-left: 5px;
+	padding-left: 15px;
 }
 
 .admin_mode_edit{
@@ -487,3 +506,40 @@ button:focus
 	align-content: center;
 
 }
+#addPhotoForm {
+	font-family: 'Work Sans', sans-serif;
+
+}
+
+
+#addPhotoForm button{
+	background-color: #A7A7A7;
+	border: none;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: auto;
+	color:white;
+	font-family: 'Syne';
+	margin-top: 50px;
+}
+
+
+hr.solid1 {
+	width: 80%;
+	border-top: 1px solid black;
+	margin-top: 30px;
+  }
+
+hr.solid2 {
+	width: 100%;
+	border-top: 1px solid black;
+	margin-top: 30px;
+  }
+
+  .modal-content span{
+	position: absolute;
+	right: 200px;
+  }

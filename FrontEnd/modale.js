@@ -14,12 +14,13 @@ const addPhotoFormPhotoName = document.getElementById("photoName");
 const addPhotoFormPhotoCategory = document.getElementById("photoCategory");
 // Ajout de la photo
 const addPhotoFormPhotoFile = document.getElementById("photoFile");
-// Bouton de retour
-const backBtn = document.getElementById("backBtn");
 
 const addPhotoButton = document.querySelector(".addPhotoDiv");
 // Récupération de l'élément bloc_preview
 const previewDiv = document.querySelector(".bloc_preview");
+// Fleche de retour
+const backToGallery = document.getElementById("backBtn");
+
 
 
 // Récupération des images depuis l'API
@@ -122,6 +123,13 @@ window.addEventListener("click", event => {
     closeModal(addPhotoModal);
   }
 });
+
+// Action de retour sur la flèche
+backBtn.addEventListener("click", () => {
+  closeModal(addPhotoModal);
+  showModal();
+});
+
 // Bouton pour ajouter une photo
 addPhotoBtn.addEventListener("click", () => {
   addPhotoModal.style.display = "block";
