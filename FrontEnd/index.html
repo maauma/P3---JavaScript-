@@ -15,11 +15,8 @@
 	<script type="module" src="modale.js" ></script>
 	<script type="module" src="admin.js" ></script>
 	<script src="https://kit.fontawesome.com/fc91445628.js" crossorigin="anonymous"></script>
-
-
-
-	
 </head>
+
 <body>
 <header>
 	<h1> <a href="index.html"> Sophie Bluel</a> <span>Architecte d'intérieur</span></h1>
@@ -32,7 +29,9 @@
 		</ul>
 	</nav>
 </header>
+
 <main>
+	<!-- Introduction -->
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -45,61 +44,53 @@
 		</article>
 	</section>
 
-	<!-- MODALE -->
-	
-
+	<!-- Modale affichant la galerie pour l'éditer -->
 	<div id="myModal" class="modal">
-  <div class="modal-content">
-    <span class="close" class="close_modal_1">&times;</span>
-    <h3>Galerie photo</h3>
-    <div id="gallery"></div>
-	<hr class="solid1">
-    <button id="addPhotoBtn">Ajouter une photo </button>
-  </div>
-</div>
-
-<div id="addPhotoModal" class="modal">
-	
-  <div class="modal-content">
-	<div class="nav_modale">
-		<button id="backBtn"><i class="fa fa-arrow-left"></i></button>
-		<span class="close">&times;</span>
-		
+  		<div class="modal-content">
+    		<span class="close" class="close_modal_1">&times;</span>
+    		<h3>Galerie photo</h3>
+    		<div id="gallery"></div>
+			<hr class="solid1">
+    		<button id="addPhotoBtn">Ajouter une photo </button>
+  		</div>
 	</div>
+
+	<!-- Modale pour ajouter une photo -->
+	<div id="addPhotoModal" class="modal">
+  		<div class="modal-content">
+				<div class="nav_modale">
+				<button id="backBtn"><i class="fa fa-arrow-left"></i></button>
+				<span class="close">&times;</span>
+			</div>
     
-	
-    <h3>Ajout photo</h3>
-
-	<div class="bloc_preview">
-		<i class="fa-solid fa-image"></i>
-		<button class="addPhotoDiv" >+ Ajouter photo</button>
-		<p>jpg, png : 4mo max</p>
+    	<h3>Ajout photo</h3>
+		
+		<!-- Bloc aperçu + chargement de l'image -->
+		<div class="bloc_preview">
+			<i class="fa-solid fa-image"></i>
+			<button class="addPhotoDiv" >+ Ajouter photo</button>
+			<p>jpg, png : 4mo max</p>
+		</div>
+		<!-- Formulaire titre + catégorie + bouton valider -->
+    	<form id="addPhotoForm">
+      		<label for="photoName">Titre</label>
+      		<input type="text" id="photoName" name="photoName"><br>
+      		<label for="photoCategory">Catégorie</label>
+      		<select id="photoCategory" name="photoCategory">
+        	<option value="paysage">Objets</option>
+        	<option value="portrait">Appartements</option>
+        	<option value="nature">Hôtels & restaurants</option>
+      		</select><br>
+	  		<hr class="solid2">
+      		<button type="submit" id="validatePhoto">Valider</button>
+    	</form>
+  		</div>
 	</div>
 
-    <form id="addPhotoForm">
-      <label for="photoName">Titre</label>
-      <input type="text" id="photoName" name="photoName"><br>
-      <label for="photoCategory">Catégorie</label>
-      <select id="photoCategory" name="photoCategory">
-        <option value="paysage">Objets</option>
-        <option value="portrait">Appartements</option>
-        <option value="nature">Hôtels & restaurants</option>
-      </select><br>
-	  <hr class="solid2">
-      <button type="submit" id="validatePhoto">Valider</button>
-    </form>
-  </div>
-</div>
-
-
-
-
-
-	
-
+	<!-- Début du portfolio : filtres + galerie -->
 	<section class="ancreEdit" id="portfolio">
+	<!-- Bloc contenant le titre + le bouton modifier en mode admin -->
 	<div class="admin_mode_edit">
-		
 		<h2>Mes Projets</h2>
 	</div>
 		<!-- Filtres -->
@@ -112,13 +103,13 @@
 				<br>
 				<button class="btn-hotels">Hôtels & restaurants</button>
 				<br>
-			
 		</div>
 		<!-- Gallerie -->
 		<div class="gallery">
 		</div>
-
 	</section>
+	
+	<!-- Formulaire de contact -->
 	<section id="contact">
 		<h2>Contact</h2>
 		<p>Vous avez un projet ? Discutons-en !</p>

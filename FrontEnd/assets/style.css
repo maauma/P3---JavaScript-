@@ -282,9 +282,6 @@ button:focus
 	display: none;
 }
 
-#ancre_modifier{
-	color:red;
-}
 
 /* LA MODALE */
 .modal {
@@ -301,16 +298,15 @@ button:focus
   }
   
   .modal-content {
-	background-color: #fefefe;
+	background-color: white;
 	margin: auto;
 	padding: 20px;
-	border: 1px solid #888;
-	
 	height: 731px;
 	width: 630px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
+	justify-content: flex-start;
 	align-items: center;
   }
 
@@ -319,7 +315,6 @@ button:focus
   .modal-content h3 {
 	text-align: center;
 	margin-top: 30px;
-	margin-bottom: 40px;
 	font-size: 20px;
   }
   
@@ -346,7 +341,6 @@ button:focus
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 	flex-direction: row;
 	gap:15px;
-	margin-bottom: 50px;
 	width: 80%;
 	margin: auto;
 }
@@ -417,6 +411,9 @@ button:focus
 
   #modalBtn{
 	border: none;
+	padding: 0;
+	margin-top: -30px;
+	background-color: white;
 
   }
 
@@ -485,6 +482,8 @@ button:focus
 
 }
 
+
+
 .nav_modale{
 	display: flex;
 	width: 100%;
@@ -508,28 +507,15 @@ button:focus
 }
 
 .admin_mode_edit{
-	background-color: red;
-	align-items: center;
-	justify-content: center;
-	padding: 0;
-	margin: 0;
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
 }
 
-.admin_mode_edit h2{
-	padding: 0;
-	margin: 0;
-	background-color: hotpink;
-	width: 30%;
-}
 
-.admin_mode_edit button{
-	background-color: forestgreen;
-	width: 10%;
-	padding: 0;
-	margin: 0;
-}
+
 #addPhotoForm {
 	font-family: 'Work Sans', sans-serif;
 
@@ -554,13 +540,11 @@ button:focus
 hr.solid1 {
 	width: 80%;
 	border-top: 1px solid black;
-	margin-top: 30px;
   }
 
 hr.solid2 {
 	width: 100%;
 	border-top: 1px solid black;
-	margin-top: 30px;
   }
 
   .modal-content span{
@@ -585,4 +569,13 @@ hr.solid2 {
 
   #edit_button_gallery{
 	background-color:red;
+  }
+
+  #addPhotoBtn{
+	color:white; 
+	border-radius: 60px;
+	width: 237px;
+	height: 36px;
+	background-color: #1D6154 ;
+	font-family: 'Syne';
   }
