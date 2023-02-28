@@ -112,6 +112,8 @@ function showModal() {
   modal.style.display = "block";
 }
 
+
+
 // Récupération des éléments HTML nécessaires
 const addPhotoForm = document.getElementById("addPhotoForm");
 const validatePhotoButton = document.getElementById("validatePhoto");
@@ -163,7 +165,26 @@ validatePhotoButton.addEventListener("click", function(event) {
     body: formData
   })
   .then(response => response.json())
-  .then(data => console.log(data))
+  .then(data => {
+    // Ajout de la nouvelle photo à la galerie
+    const newImageContainer = document.createElement("div");
+    // ...
+    gallery.appendChild(newImageContainer);
+  
+    // Récupération de toutes les images depuis l'API, y compris la nouvelle image ajoutée
+    fetch("http://localhost:5678/api/works")
+      .then(response => response.json())
+      .then(data => {
+        // Mise à jour de la galerie de photos avec les nouvelles images
+        gallery.innerHTML = "";
+        data.forEach(image => {
+          const imgContainer = document.createElement("div");
+          // ...
+          gallery.appendChild(imgContainer);
+        });
+      })
+      .catch(error => console.error(error));
+  })
   .catch(error => console.error(error));
 });
 
