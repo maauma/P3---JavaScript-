@@ -7,6 +7,8 @@ const loginButton = document.querySelector('#login');
 // URL de l'API pour vérifier les utilisateurs
 const apiUrl = 'http://localhost:5678/api/users/login';
 
+
+
 // Fonction pour vérifier si un token est présent dans le stockage local
 export function checkToken() {
     const token = localStorage.getItem('token');
@@ -14,26 +16,37 @@ export function checkToken() {
     return token !== null;
   }
 
-// Fonction pour envoyer une requête FETCH à l'API
-export async function authenticateUser(email, password) {
-  const response = await fetch(apiUrl, {
-    method: 'POST',
-    body: JSON.stringify({ email, password }),
-    headers: {
-      'Content-Type': 'application/json'
+  export async function authenticateUser(email, password) {
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  
+    if (!response.ok) {
+      throw new Error('Identifiants invalides');
     }
-  });
-  if (!response.ok) {
-    throw new Error('Identifiants invalides');
+  
+    const data = await response.json();
+  
+    if (!data.userId) {
+      throw new Error('La réponse de l\'API ne contient pas d\'userId');
+    }
+  
+    return {
+      token: data.token,
+      userId: data.userId
+    };
   }
-  const data = await response.json();
-  return data.token;
-}
+  
 
 // Fonction pour stocker le token dans le stockage local
  function storeToken(token) {
   localStorage.setItem('token', token);
 }
+
 
 // Fonction pour gérer la connexion de l'utilisateur
 async function handleLogin(event) {
@@ -41,15 +54,19 @@ async function handleLogin(event) {
   const email = emailInput.value;
   const password = passwordInput.value;
   try {
-    const token = await authenticateUser(email, password);
+    const { token, userId } = await authenticateUser(email, password);
     storeToken(token);
-    alert('Vous êtes connecté !');
+    localStorage.setItem('userId', userId);
+    alert('Vous êtes connecté ! ');
     window.location.href = 'index.html';
   } catch (error) {
     alert('Identifiants de connexion incorrects. Veuillez réessayer.');
     console.error(error);
   }
 }
+
+
+
 
 // Ajout d'un écouteur d'événement au formulaire
 formulaireLogin.addEventListener('submit', handleLogin);

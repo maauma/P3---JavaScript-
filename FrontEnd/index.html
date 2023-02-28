@@ -9,7 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
+	<!-- CSS -->
 	<link rel="stylesheet" href="./assets/style.css">
+	<link rel="stylesheet" href="./assets/login.css">
+	<link rel="stylesheet" href="./assets/filtres.css">
+	<link rel="stylesheet" href="./assets/modale.css">
+	<!-- JAVASCRIPT -->
 	<script type="module" src="divers.js" ></script>
 	<script type="module" src="home.js" ></script>
 	<script type="module" src="modale.js" ></script>
@@ -31,7 +36,7 @@
 </header>
 
 <main>
-	<!-- Introduction -->
+	<!-- Article d'introduction -->
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
@@ -68,8 +73,9 @@
 		<!-- Bloc aperçu + chargement de l'image -->
 		<div class="bloc_preview">
 			<i class="fa-solid fa-image"></i>
-			<button class="addPhotoDiv" >+ Ajouter photo</button>
+			<input type="file" class="addPhotoDiv" id="addPhotoBloc">
 			<p>jpg, png : 4mo max</p>
+			<img id="previewImage" src="#" alt="Aperçu de l'image" style="display:none;">
 		</div>
 		<!-- Formulaire titre + catégorie + bouton valider -->
     	<form id="addPhotoForm">
@@ -77,9 +83,9 @@
       		<input type="text" id="photoName" name="photoName"><br>
       		<label for="photoCategory">Catégorie</label>
       		<select id="photoCategory" name="photoCategory">
-        	<option value="paysage">Objets</option>
-        	<option value="portrait">Appartements</option>
-        	<option value="nature">Hôtels & restaurants</option>
+        	<option value="1">Objets</option>
+        	<option value="2">Appartements</option>
+        	<option value="3">Hôtels & restaurants</option>
       		</select><br>
 	  		<hr class="solid2">
       		<button type="submit" id="validatePhoto">Valider</button>
@@ -108,7 +114,7 @@
 		<div class="gallery">
 		</div>
 	</section>
-	
+
 	<!-- Formulaire de contact -->
 	<section id="contact">
 		<h2>Contact</h2>

@@ -1,0 +1,56 @@
+/* Formulaire login */
+
+.formulaire_login {
+	width: 390px;
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+	align-items: center;
+	margin-bottom: 160px;
+}
+
+.formulaire_login h2{
+	margin-bottom: 50px;
+}
+
+.contenu_formulaire{
+	width: 100%;
+	font-family: 'Syne';
+}
+
+.formulaire_login > * {
+	text-align: center;
+}
+
+.contenu_formulaire label{
+	color:#3D3D3D;
+	margin-bottom: 5px;
+	text-align: left;
+	color:red;
+}
+
+.contenu_formulaire input{
+	width: 380px;
+	height: 50px;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	margin-bottom: 15px;
+	padding-left: 15px;
+}
+
+.btn-connexion{
+	background-color: #1D6154;
+	color: white;
+	box-shadow: none;
+	border-radius: 20px;
+	width: 180px;
+	font-family: 'Syne';
+	border: none;
+	margin-bottom: 25px;
+	margin-top: 25px;
+	height: 38px;
+}
+
+#logout {
+	display: none;
+}

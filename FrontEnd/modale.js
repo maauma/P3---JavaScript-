@@ -2,6 +2,10 @@
 
 // Récupération du token
 const token = localStorage.getItem("token");
+// Récupération du userId
+const userId = localStorage.getItem('userId');
+console.log(localStorage.getItem('userId'));
+
 
 // 1ère fenêtre modale
 // Récupération de la fenêtre modale
@@ -108,46 +112,68 @@ function showModal() {
   modal.style.display = "block";
 }
 
+// Récupération des éléments HTML nécessaires
+const addPhotoForm = document.getElementById("addPhotoForm");
+const validatePhotoButton = document.getElementById("validatePhoto");
+const addPhotoBloc = document.getElementById("addPhotoBloc");
+const previewImage = document.getElementById("previewImage");
 
-// configuration de l'élément input pour le chargement de photo
-photoInput.type = 'file';
-photoInput.accept = '.jpg, .png';
+// Ajout d'un écouteur d'événement qui écoute les changements sur le champ input de type file
+// et met à jour l'attribut src de l'élément img avec le fichier sélectionné
+addPhotoBloc.addEventListener("change", function() {
+  const file = addPhotoBloc.files[0]; // Récupération du fichier sélectionné
+  const reader = new FileReader(); // Création d'un objet FileReader pour lire le contenu du fichier
 
-// ajout de l'événement pour le chargement de photo
-addPhotoButton.addEventListener('click', () => {
-  photoInput.click();
-});
-
-// ajout de l'événement pour la prévisualisation de photo
-photoInput.addEventListener('change', () => {
-  const file = photoInput.files[0];
-  const reader = new FileReader();
-
-  reader.onload = (event) => {
-    const img = new Image();
-    img.src = event.target.result;
-    img.onload = () => {
-      previewDiv.innerHTML = '';
-      previewDiv.appendChild(img);
-    }
-  };
-
-  reader.readAsDataURL(file);
-});
-
-
-// ajout de l'événement pour la validation du formulaire
-[addPhotoFormPhotoName, addPhotoFormPhotoCategory].forEach((element) => {
-  element.addEventListener('input', () => {
-    if (addPhotoFormPhotoName.checkValidity() && addPhotoFormPhotoCategory.checkValidity()) {
-      validateButton.classList.add('valid');
-      validateButton.disabled = false;
-    } else {
-      validateButton.classList.remove('valid');
-      validateButton.disabled = true;
-    }
+  // Ajout d'un écouteur d'événement qui écoute lorsque la lecture du fichier est terminée
+  reader.addEventListener("load", function() {
+    previewImage.src = reader.result; // Mise à jour de l'attribut src de l'élément img avec le contenu du fichier encodé en base64
   });
+
+  if (file) {
+    reader.readAsDataURL(file); // Lecture du contenu du fichier encodé en base64
+  }
 });
+
+// Ajout d'un écouteur d'événement qui écoute le clic sur le bouton "Valider"
+// et empêche le comportement de soumission par défaut du formulaire
+validatePhotoButton.addEventListener("click", function(event) {
+  event.preventDefault();
+  
+  // Récupération des données du formulaire (fichier, titre et catégorie)
+  const file = addPhotoBloc.files[0];
+  const photoName = document.getElementById("photoName").value;
+  const photoCategory = document.getElementById("photoCategory").value;
+  
+  // Création d'un objet FormData pour envoyer les données du formulaire au format multipart/form-data
+  const formData = new FormData();
+  formData.append("image", file);
+  formData.append("title", photoName);
+  formData.append("category", photoCategory);
+  
+  // Récupération de l'ID utilisateur et du token stockés dans le localStorage
+  const userId = localStorage.getItem("userId");
+  const token = localStorage.getItem("token");
+  
+  // Envoi d'une requête POST à l'API avec les données du formulaire et les informations d'authentification
+  fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+});
+
+
+
+
+
+
+
+
 
 
 // Fonction pour fermer une fenêtre modale

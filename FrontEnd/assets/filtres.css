@@ -1,0 +1,30 @@
+/* FILTRES */
+
+.filter{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin: auto;
+	font-family: 'Syne';
+	box-shadow: none;
+	gap:10px;
+	padding: 9px;
+	margin-bottom: 40px;
+}
+
+.btn-tous, .btn-objets, .btn-hotels, .btn-appartements{
+	font-family: 'Syne';
+	padding-right: 20px;
+	padding-left: 20px;
+	border-radius: 60px;
+	border: #1D6154 solid 1px;
+	color: #1D6154;
+	height: 32px;
+}
+
+
+button:focus
+{
+	background-color:#1D6154;
+	color: white;
+}

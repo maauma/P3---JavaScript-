@@ -18,13 +18,15 @@ const paragraphe = document.createElement('p');
 paragraphe.textContent = 'Mode édition';
 
 // Créer un élément i pour l'icône
-var icon = document.createElement('i');
+const icon = document.createElement('i');
+icon.className = "fa-regular fa-pen-to-square";
+const adminModeEdit = document.querySelector(".admin_mode_edit");
 
-// Ajouter les classes FontAwesome nécessaires
-icon.classList.add('fas');
-icon.classList.add('fa-check');// Ajouter l'icône à l'élément existant
-// Ajouter l'icône à l'élément ayant l'ID "bandeau"
-bandeau.appendChild(icon);
+// Ajout de l'ancre
+adminModeEdit.appendChild(icon);
+
+
+
 
 
 
