@@ -4,18 +4,17 @@ const token = localStorage.getItem('token');
 // Si l'utilisateur est connecté on affiche le mode admin
 if (token) {
   const adminModeEdit = document.querySelector(".admin_mode_edit");
-
   // Créer un élément i pour l'icône
   const icon = document.createElement('i');
   icon.className = "fa-regular fa-pen-to-square";
-// Ajout de l'ancre
-adminModeEdit.appendChild(icon);
-    // Création du bouton "modifier" pour ouvrir la modale
-    const ancreModale = document.createElement('button');
-    ancreModale.textContent = "modifier";
-    ancreModale.id = 'modalBtn';
-    // Ajout de l'ancre
-    adminModeEdit.appendChild(ancreModale);
+  // Ajout de l'ancre
+  adminModeEdit.appendChild(icon);
+  // Création du bouton "modifier" pour ouvrir la modale
+  const ancreModale = document.createElement('button');
+  ancreModale.textContent = "modifier";
+  ancreModale.id = 'modalBtn';
+  // Ajout de l'ancre
+  adminModeEdit.appendChild(ancreModale);
 }
 
 // Récupération des travaux depuis l'API
@@ -50,13 +49,13 @@ export function affichageTravaux(travaux) {
 // On affiche les travaux
 affichageTravaux(travaux);
 
-// Les filtres
-// Regrouper dans une seule fonction le comportement des filtres
+// Les boutons defiltres
 const boutonObjets = document.querySelector(".btn-objets");
 const boutonHotels = document.querySelector(".btn-hotels");
 const boutonAppartements = document.querySelector(".btn-appartements");
 const boutonTous = document.querySelector(".btn-tous");
 
+// Filtre objets
 boutonObjets.addEventListener("click", function () {
   const travauxObjets = travaux.filter(function (travaux) {
     return travaux.categoryId === 1;
@@ -64,7 +63,7 @@ boutonObjets.addEventListener("click", function () {
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxObjets);
 });
-
+// Filtre Hôtels
 boutonHotels.addEventListener("click", function () {
   const travauxHotels = travaux.filter(function (travaux) {
     return travaux.categoryId === 3;
@@ -72,7 +71,7 @@ boutonHotels.addEventListener("click", function () {
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxHotels);
 });
-
+// Filtre Appartements
 boutonAppartements.addEventListener("click", function () {
   const travauxAppartements = travaux.filter(function (travaux) {
     return travaux.categoryId === 2;
@@ -80,7 +79,7 @@ boutonAppartements.addEventListener("click", function () {
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxAppartements);
 });
-
+// Filtre tous
 boutonTous.addEventListener("click", function () {
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travaux);

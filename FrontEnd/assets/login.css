@@ -16,6 +16,11 @@
 .contenu_formulaire{
 	width: 100%;
 	font-family: 'Syne';
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	text-align: left;
+	align-items: flex-start;
 }
 
 .formulaire_login > * {
@@ -23,10 +28,8 @@
 }
 
 .contenu_formulaire label{
-	color:#3D3D3D;
-	margin-bottom: 5px;
-	text-align: left;
-	color:red;
+	margin-bottom: 15px;
+	margin-left: 0px;
 }
 
 .contenu_formulaire input{
@@ -53,4 +56,8 @@
 
 #logout {
 	display: none;
+}
+
+.boutonLogin{
+width: 100%;
 }

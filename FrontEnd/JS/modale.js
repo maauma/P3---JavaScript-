@@ -188,6 +188,13 @@ validatePhotoButton.addEventListener("click", function(event) {
   const photoName = document.getElementById("photoName").value;
   const photoCategory = document.getElementById("photoCategory").value;
   
+   // Vérification si les champs titre et fichier sont renseignés
+   if (!photoName || !file) {
+    alert("Veuillez ajouter une photo et un titre");
+    return;
+  }
+  
+
   // Création d'un objet FormData pour envoyer les données du formulaire au format multipart/form-data
   const formData = new FormData();
   formData.append("image", file);

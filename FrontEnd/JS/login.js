@@ -7,8 +7,6 @@ const loginButton = document.querySelector('#login');
 // URL de l'API pour vérifier les utilisateurs
 const apiUrl = 'http://localhost:5678/api/users/login';
 
-
-
 // Fonction pour vérifier si un token est présent dans le stockage local
 export function checkToken() {
     const token = localStorage.getItem('token');
@@ -41,12 +39,10 @@ export function checkToken() {
     };
   }
   
-
 // Fonction pour stocker le token dans le stockage local
  function storeToken(token) {
   localStorage.setItem('token', token);
 }
-
 
 // Fonction pour gérer la connexion de l'utilisateur
 async function handleLogin(event) {
@@ -64,9 +60,6 @@ async function handleLogin(event) {
     console.error(error);
   }
 }
-
-
-
 
 // Ajout d'un écouteur d'événement au formulaire
 formulaireLogin.addEventListener('submit', handleLogin);
