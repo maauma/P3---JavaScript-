@@ -42,6 +42,8 @@ const photoInput = document.createElement('input');
 const validateButton = document.querySelector('#validatePhoto');
 
 
+
+
 // Récupération des images depuis l'API
 let images = [];
 fetch("http://localhost:5678/api/works")
@@ -70,6 +72,7 @@ function showModal() {
     editLink.id = "edit";
     editLink.href = `http://localhost:5678/edit/${image.id}`; // Mettre l'URL de la page d'édition
     editLink.textContent = "éditer";
+    editLink.id ="edit_link";
     imgContainer.appendChild(editLink);
 
     // Création de l'icône de supression
@@ -101,6 +104,8 @@ function showModal() {
             console.error(`Erreur lors de la suppression de l'image avec l'id  ${imageId}: ${error}`);
           });
       }
+
+
       // Supprimer l'élément HTML correspondant à l'image
       imgContainer.remove();
     });
@@ -114,27 +119,64 @@ function showModal() {
 
 
 
+function deleteImage(imageId) {
+  fetch(`http://localhost:5678/api/works/${imageId}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+    .then(response => {
+      if (response.ok) {
+        console.log(`L'image avec l'id ${imageId} a été suprimée`);
+      } else {
+        console.error(`Erreur lors de la suppresion de l'image avec l'id ${imageId}`);
+      }
+    })
+    .catch(error => {
+      console.error(`Erreur lors de la suppression de l'image avec l'id  ${imageId}: ${error}`);
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
 // Récupération des éléments HTML nécessaires
 const addPhotoForm = document.getElementById("addPhotoForm");
 const validatePhotoButton = document.getElementById("validatePhoto");
 const addPhotoBloc = document.getElementById("addPhotoBloc");
 const previewImage = document.getElementById("previewImage");
 
+// et met à jour l'attribut src de l'élément img avec le fichier sélectionné
 // Ajout d'un écouteur d'événement qui écoute les changements sur le champ input de type file
 // et met à jour l'attribut src de l'élément img avec le fichier sélectionné
 addPhotoBloc.addEventListener("change", function() {
+  previewBlock.innerHTML = ""; // Supprime le contenu de la classe "bloc_preview"
+  const imgPreview = document.createElement("img"); // Crée un nouvel élément img pour l'aperçu de l'image
+  imgPreview.classList.add("preview-image"); // Ajoute la classe "preview-image" à l'élément img
+  previewBlock.appendChild(imgPreview); // Ajoute l'élément img à la classe "bloc_preview"
+
   const file = addPhotoBloc.files[0]; // Récupération du fichier sélectionné
   const reader = new FileReader(); // Création d'un objet FileReader pour lire le contenu du fichier
 
   // Ajout d'un écouteur d'événement qui écoute lorsque la lecture du fichier est terminée
   reader.addEventListener("load", function() {
-    previewImage.src = reader.result; // Mise à jour de l'attribut src de l'élément img avec le contenu du fichier encodé en base64
+    imgPreview.src = reader.result; // Mise à jour de l'attribut src de l'élément img avec le contenu du fichier encodé en base64
   });
 
   if (file) {
     reader.readAsDataURL(file); // Lecture du contenu du fichier encodé en base64
   }
 });
+
 
 // Ajout d'un écouteur d'événement qui écoute le clic sur le bouton "Valider"
 // et empêche le comportement de soumission par défaut du formulaire
@@ -226,15 +268,33 @@ window.addEventListener("click", event => {
   }
 });
 
+
+
 // Action de retour sur la flèche
 backBtn.addEventListener("click", () => {
   closeModal(addPhotoModal);
   showModal();
 });
 
-// Bouton pour ajouter une photo
-addPhotoBtn.addEventListener("click", () => {
+// Ajouter un gestionnaire d'événements pour le clic sur le bouton "Ajouter une photo"
+addPhotoBtn.addEventListener('click', () => {
+  // Fermer la modale "myModal"
+  const myModal = document.getElementById('myModal');
+  myModal.style.display = 'none';
   addPhotoModal.style.display = "block";
 });
+
+// Récupération du bouton de validation du formulaire
+// Vérification si tous les éléments du formulaire sont chargés et changement de couleur du bouton
+addPhotoForm.addEventListener("input", () => {
+  if (addPhotoFormPhotoName.value && addPhotoFormPhotoCategory.value && addPhotoBloc.files[0]) {
+    validatePhotoButton.style.backgroundColor = "#1D6154";
+  } else {
+    validatePhotoButton.style.backgroundColor = "grey";
+  }
+});
+
+
+
 
 

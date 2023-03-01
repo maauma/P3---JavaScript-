@@ -22,3 +22,4 @@ Pour lire la documentation, utiliser Chrome ou Firefox
 
 API LOGIN
 http://localhost:5678/api/users/login
+http://localhost:5678/api/users/works

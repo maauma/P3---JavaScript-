@@ -13,17 +13,15 @@ bandeau.style.height = '50px';
 
 
 
+
 // Création du paragraphe "mode édition"
 const paragraphe = document.createElement('p');
 paragraphe.textContent = 'Mode édition';
 
-// Créer un élément i pour l'icône
-const icon = document.createElement('i');
-icon.className = "fa-regular fa-pen-to-square";
-const adminModeEdit = document.querySelector(".admin_mode_edit");
 
-// Ajout de l'ancre
-adminModeEdit.appendChild(icon);
+
+
+
 
 
 

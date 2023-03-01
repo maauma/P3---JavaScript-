@@ -57,6 +57,7 @@
     		<div id="gallery"></div>
 			<hr class="solid1">
     		<button id="addPhotoBtn">Ajouter une photo </button>
+			<button id="deleteAllImagesBtn">Supprimer la galerie</button>
   		</div>
 	</div>
 
@@ -72,10 +73,10 @@
 		
 		<!-- Bloc aperçu + chargement de l'image -->
 		<div class="bloc_preview">
-			
-			<i class="fa-solid fa-image"></i>
-			<input type="file" class="addPhotoDiv" id="addPhotoBloc">
+			<i class="fa-regular fa-image"></i>
 			<p>jpg, png : 4mo max</p>
+			<input  type="file" style="display:none;" id="addPhotoBloc" class="addPhotoDiv" name="file-input" title="+ Ajouter photo"/>
+			<button class="btnAddPhoto" onclick="document.getElementById('addPhotoBloc').click();">+ Ajouter photo</button>
 			<img id="previewImage" src="#" alt="Aperçu de l'image" style="display:none;">
 		</div>
 		<!-- Formulaire titre + catégorie + bouton valider -->

@@ -4,12 +4,18 @@ const token = localStorage.getItem('token');
 // Si l'utilisateur est connecté on affiche le mode admin
 if (token) {
   const adminModeEdit = document.querySelector(".admin_mode_edit");
-  // Création du bouton "modifier" pour ouvrir la modale
-  const ancreModale = document.createElement('button');
-  ancreModale.textContent = "modifier";
-  ancreModale.id = 'modalBtn';
-  // Ajout de l'ancre
-  adminModeEdit.appendChild(ancreModale);
+
+  // Créer un élément i pour l'icône
+  const icon = document.createElement('i');
+  icon.className = "fa-regular fa-pen-to-square";
+// Ajout de l'ancre
+adminModeEdit.appendChild(icon);
+    // Création du bouton "modifier" pour ouvrir la modale
+    const ancreModale = document.createElement('button');
+    ancreModale.textContent = "modifier";
+    ancreModale.id = 'modalBtn';
+    // Ajout de l'ancre
+    adminModeEdit.appendChild(ancreModale);
 }
 
 // Récupération des travaux depuis l'API
