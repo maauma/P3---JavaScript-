@@ -1,6 +1,8 @@
 // Récupération du token
 const token = localStorage.getItem('token');
 
+
+
 // Si l'utilisateur est connecté on affiche le mode admin
 if (token) {
   const adminModeEdit = document.querySelector(".admin_mode_edit");
@@ -17,14 +19,21 @@ if (token) {
   adminModeEdit.appendChild(ancreModale);
 }
 
-// Récupération des travaux depuis l'API
-const reponse = await fetch('http://localhost:5678/api/works');
-const travaux = await reponse.json();
+
+
+export async function recupererTravaux() {
+  const reponse = await fetch('http://localhost:5678/api/works');
+  const travaux = await reponse.json();
+  return travaux;
+}
+
+const mesTravaux = await recupererTravaux();
+
 
 // Fonction pour l'affichage des travaux
-export function affichageTravaux(travaux) {
-  for (let i = 0; i < travaux.length; i++) {
-    const works = travaux[i];
+export function affichageTravaux(mesTravaux) {
+  for (let i = 0; i < mesTravaux.length; i++) {
+    const works = mesTravaux[i];
 
     // Récupération de l'élément du DOM qui accueillera les travaux
     const sectionTravaux = document.querySelector(".gallery");
@@ -32,7 +41,7 @@ export function affichageTravaux(travaux) {
 
     // Création d’une balise dédiée à un travail
     const figureElement = document.createElement("figure");
-    figureElement.dataset.id = travaux[i].id
+    figureElement.dataset.id = mesTravaux[i].id
     // Création des balises 
     const imageUrlElement = document.createElement("img");
     imageUrlElement.src = works.imageUrl;
@@ -47,7 +56,7 @@ export function affichageTravaux(travaux) {
 }
 
 // On affiche les travaux
-affichageTravaux(travaux);
+affichageTravaux(mesTravaux);
 
 // Les boutons defiltres
 const boutonObjets = document.querySelector(".btn-objets");
