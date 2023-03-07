@@ -1,30 +1,17 @@
 
-const reponse = await fetch('http://localhost:5678/api/works');
-const travaux = await reponse.json();
-
+// Importation des fonctions pour afficher les travaux dans l'accueil
 import { affichageTravaux } from "./home.js";
 import { recupererTravaux } from "./home.js";
 
-
-
-// Appel de la fonction de récupération des travaux et d'affichage
+// Appel de la fonction de récupération des travaux et d'affichage pour les rafraichir 
 async function recupererEtAfficherTravaux() {
   const travaux = await recupererTravaux();
   affichageTravaux(travaux);
 }
 
-
 // Déclaration des constantes
-
-
-
-
 // Récupération du token
 const token = localStorage.getItem("token");
-// Récupération du userId
-const userId = localStorage.getItem('userId');
-console.log(localStorage.getItem('userId'));
-
 
 // 1ère fenêtre modale
 // Récupération de la fenêtre modale
@@ -37,34 +24,23 @@ const closeBtns = document.getElementsByClassName("close");
 const addPhotoBtn = document.getElementById("addPhotoBtn");
 // Gallerie photo présente dans la fenêtre modale
 const gallery = document.getElementById("gallery");
+
 // 2ème fenêtre modale pour ajouter une photo
 const addPhotoModal = document.getElementById("addPhotoModal");
-
 // Formulaire pour titre + catégorie
 // Saisie nom de l'image - 2ème fenêtre modale
 const addPhotoFormPhotoName = document.getElementById("photoName");
 // Saisie categorie de la photo - 2ème fenêtre modale
 const addPhotoFormPhotoCategory = document.getElementById("photoCategory");
-// Bouton pour ajouter une photo dans le bloc preview
-const addPhotoButton = document.querySelector(".addPhotoDiv");
-// Fleche de retour
-const backToGallery = document.getElementById("backBtn");
 // Sélectionne la div "bloc_preview"
 const previewBlock = document.querySelector('.bloc_preview');
-// Création d'une constante pour l'image chargée par l'utilisateur
-const photoInput = document.createElement('input');
-// Bouton valider pour le formulaire et le chargement de l'image
-const validateButton = document.querySelector('#validatePhoto');
-
+// Section d'affichage des travaux dans l'index
 const sectionTravaux = document.querySelector(".gallery");
 
 const validatePhotoButton = document.getElementById("validatePhoto");
 
 
-
-
-
-// Récupération des images depuis l'API
+// Récupération des images depuis l'API pour la galerie de la fenêtre modale
 let images = [];
 fetch("http://localhost:5678/api/works")
   .then(response => response.json())
@@ -72,62 +48,74 @@ fetch("http://localhost:5678/api/works")
     images = data;
   });
 
-// Fonction pour afficher la fenêtre modale de la galerie
-function showModal() {
-  // Suppression des anciennes images
-  gallery.innerHTML = "";
-  // Ajout des nouvelles images dans la galerie de la modale
-  images.forEach(image => {
-    const imgContainer = document.createElement("div");
-    imgContainer.classList.add("gallery-image-container");
-    // Création de l'élément img pour afficher l'image
-    const img = document.createElement("img");
-    img.src = image.imageUrl;
-    imgContainer.appendChild(img);
-    // Création de l'élément a pour le lien "éditer"
-    const editLink = document.createElement("a");
-    editLink.id = "edit";
-    editLink.href = `http://localhost:5678/edit/${image.id}`; // Mettre l'URL de la page d'édition
-    editLink.textContent = "éditer";
-    editLink.id ="edit_link";
-    imgContainer.appendChild(editLink);
-    // Création de l'icône de supression
-    const deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("fa", "fa-trash", "gallery-image-delete-icon");
-    deleteIcon.addEventListener("click", () => {
+// Fonction pour afficher la galerie de la modale
+export function displayImage(image) {
+  // Création de la div avec la photo + les liens
+  const imgContainer = document.createElement("div");
+  imgContainer.classList.add("gallery-image-container");
+  // Création de la nouvelle image
+  const img = document.createElement("img");
+  img.src = image.imageUrl;
+  imgContainer.appendChild(img);
+  // Création du lien éditer
+  const editLink = document.createElement("a");
+  editLink.id = "edit";
+  editLink.href = `http://localhost:5678/edit/${image.id}`;
+  editLink.textContent = "éditer";
+  editLink.id ="edit_link";
+  imgContainer.appendChild(editLink);
+  // Création de l'icône de suppression
+  const deleteIcon = document.createElement("i");
+  deleteIcon.classList.add("fa", "fa-trash", "gallery-image-delete-icon");
+  deleteIcon.addEventListener("click", () => {
     deleteImage(image.id);
     imgContainer.remove();
-    // Fonction pour supprimer une image
-    function deleteImage(imageId) {
-        fetch(`http://localhost:5678/api/works/${imageId}`, {
-          method: "DELETE",
-          headers: {
-            "Authorization": `Bearer ${token}`
-          }
-        })
-          .then(response => {
-            if (response.ok) {
-              console.log(`L'image avec l'id ${imageId} a été suprimée`);
-              // Supprimer l'élément HTML correspondant à l'image
-              const imageElement = document.querySelector(`figure[data-id="${imageId}"]`);
-        if (imageElement) {
-          imageElement.remove();
-        }
-            } else {
-              console.error(`Erreur lors de la suppresion de l'image avec l'id ${imageId}`);
-            }
-          })
-        
-    }
-
-      // Supprimer l'élément HTML correspondant à l'image
-      imgContainer.remove();
-    });
-    imgContainer.appendChild(deleteIcon);
-
-    gallery.appendChild(imgContainer);
   });
+  imgContainer.appendChild(deleteIcon);
+  // On affiche dans la gallery modale les images
+  gallery.appendChild(imgContainer);
+}
 
+// Fonction pour supprimer une photo
+function deleteImage(imageId) {
+  fetch(`http://localhost:5678/api/works/${imageId}`, {
+    method: "DELETE",
+    headers: {
+      "Authorization": `Bearer ${token}`
+    }
+  })
+  .then(response => {
+    if (response.ok) {
+      console.log(`L'image avec l'id ${imageId} a été supprimée`);
+      const imageElement = document.querySelector(`figure[data-id="${imageId}"]`);
+      if (imageElement) {
+        imageElement.remove();
+      }
+
+      // Rafraîchissement de la galerie de la modale
+      gallery.innerHTML = "";
+      showModal();
+    } else {
+      console.error(`Erreur lors de la suppresion de l'image avec l'id ${imageId}`);
+    }
+  })
+}
+
+// Fonction lors de l'affichage de la fenêtre modale
+async function showModal() {
+  // Récupération des images depuis l'API
+  const response = await fetch("http://localhost:5678/api/works");
+  const data = await response.json();
+  images = data;
+
+  // Effacement des images précédentes
+  gallery.innerHTML = "";
+
+  // Affichage des images dans la galerie modale
+  images.forEach(image => {
+    displayImage(image);
+  });
+  
   modal.style.display = "block";
 }
 
@@ -137,9 +125,6 @@ function showModal() {
 // et appelle la fonction handleFileInputChange
 const addPhotoBloc = document.getElementById("addPhotoBloc");
 addPhotoBloc.addEventListener("change", handleFileInputChange);
-
-
-
 
 function createImagePreview(file) {
   const previewBlock = document.querySelector('.bloc_preview');
@@ -171,8 +156,6 @@ function createImagePreview(file) {
 }
 
 
-
-
 // Fonction pour gérer le changement de fichier sélectionné
 function handleFileInputChange() {
   const file = addPhotoBloc.files[0]; // Récupération du fichier sélectionné
@@ -196,24 +179,26 @@ function restorePreviewBlockContent() {
 // Fonction pour réinitialiser le formulaire
 function resetState() {
   const previewImage = document.querySelector(".preview-image");
-    if (previewImage) {
-      // Supprime la preview existante
-      previewImage.parentNode.remove();
-    }
+  if (previewImage) {
+    // Supprime la preview existante
+    previewImage.parentNode.remove();
+  }
+  // Réinitialisation de la galerie modale
+  gallery.innerHTML = "";
   // Réinitialisation du formulaire
   addPhotoForm.reset();
   // Réinitialisation du champ de fichier
   addPhotoBloc.value = null;
   // Réinitialisation de la couleur du bouton de validation
   validatePhotoButton.style.backgroundColor = "grey";
-   // Réinitialisation de l'aperçu
-   restorePreviewBlockContent(); // Ajouter cet appel pour supprimer l'aperçu de l'image
+  // Réinitialisation de l'aperçu
+  restorePreviewBlockContent(); // Ajouter cet appel pour supprimer l'aperçu de l'image
 }
 
 
 
+
 // Ajout d'un écouteur d'événement qui écoute le clic sur le bouton "Valider"
-// et empêche le comportement de soumission par défaut du formulaire
 validatePhotoButton.addEventListener("click", function(event) {
   event.preventDefault();
   
@@ -227,7 +212,6 @@ validatePhotoButton.addEventListener("click", function(event) {
     alert("Veuillez ajouter une photo et un titre");
     return;
   }
-  
 
   // Création d'un objet FormData pour envoyer les données du formulaire au format multipart/form-data
   const formData = new FormData();
@@ -249,17 +233,26 @@ validatePhotoButton.addEventListener("click", function(event) {
   })
   .then(response => response.json())
   .then(data => {
+    // Actualisation de la galerie de la modale
+    gallery.innerHTML = "";
+    fetch("http://localhost:5678/api/works")
+      .then(response => response.json())
+      .then(data => {
+        images = data;
+    
+      });
+  
+    
     sectionTravaux.innerHTML = "";
     recupererEtAfficherTravaux();
     addPhotoForm.reset();
     restorePreviewBlockContent(); // Ajout de l'appel à la fonction restorePreviewBlockContent()
- resetState();
- closeModal(addPhotoModal);
- addPhotoBloc.value = "";
-
-    
-    
+    resetState();
+    addPhotoBloc.value = "";
+    closeModal(addPhotoModal);
+    closeModal(modal); // Fermeture de la modale "myModal"
   })
+  
   .catch(error => console.error(error));
 });
 
@@ -274,17 +267,6 @@ addPhotoForm.addEventListener("input", () => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
 // Événements sur les boutons
 
 function closeModal(modal) {
@@ -293,12 +275,12 @@ function closeModal(modal) {
     restorePreviewBlockContent();
     resetState();
   }
+  
   modal.style.display = "none";
   addPhotoForm.reset();
   restorePreviewBlockContent(); // Ajouter l'appel à la fonction restorePreviewBlockContent()
+  
 }
-
-
 
 // Afficher la modale en cliquant sur le bouton "modifier"
 modalBtn.addEventListener("click", showModal);
@@ -344,29 +326,8 @@ addPhotoBtn.addEventListener('click', () => {
 
 
 
-// Événements sur les boutons
 
-// Afficher la modale en cliquant sur le bouton "modifier"
-modalBtn.addEventListener("click", showModal);
 
-// Bouton croix pour fermer la modale
-Array.from(closeBtns).forEach(btn => {
-  btn.addEventListener("click", () => {
-    closeModal(modal);
-    closeModal(addPhotoModal);
-    
-  });
-});
-
-// Femer la modale en cliquant à l'extérieur de la fenêtre
-window.addEventListener("click", event => {
-  if (event.target == modal) {
-    closeModal(modal);
-  }
-  if (event.target == addPhotoModal) {
-    closeModal(addPhotoModal);
-  }
-});
 
 
 

@@ -1,6 +1,11 @@
 // Récupération du token
 const token = localStorage.getItem('token');
 
+const boutonObjets = document.querySelector(".btn-objets");
+const boutonHotels = document.querySelector(".btn-hotels");
+const boutonAppartements = document.querySelector(".btn-appartements");
+const boutonTous = document.querySelector(".btn-tous");
+
 
 
 // Si l'utilisateur est connecté on affiche le mode admin
@@ -58,38 +63,40 @@ export function affichageTravaux(mesTravaux) {
 // On affiche les travaux
 affichageTravaux(mesTravaux);
 
-// Les boutons defiltres
-const boutonObjets = document.querySelector(".btn-objets");
-const boutonHotels = document.querySelector(".btn-hotels");
-const boutonAppartements = document.querySelector(".btn-appartements");
-const boutonTous = document.querySelector(".btn-tous");
-
 // Filtre objets
 boutonObjets.addEventListener("click", function () {
-  const travauxObjets = travaux.filter(function (travaux) {
-    return travaux.categoryId === 1;
+  const travauxObjets = mesTravaux.filter(function (mesTravaux) {
+    return mesTravaux.categoryId === 1;
   });
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxObjets);
 });
+
+
+
 // Filtre Hôtels
 boutonHotels.addEventListener("click", function () {
-  const travauxHotels = travaux.filter(function (travaux) {
-    return travaux.categoryId === 3;
+  const travauxHotels = mesTravaux.filter(function (mesTravaux) {
+    return mesTravaux.categoryId === 3;
   });
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxHotels);
 });
+
 // Filtre Appartements
 boutonAppartements.addEventListener("click", function () {
-  const travauxAppartements = travaux.filter(function (travaux) {
-    return travaux.categoryId === 2;
+  const travauxAppartements = mesTravaux.filter(function (mesTravaux) {
+    return mesTravaux.categoryId === 2;
   });
   document.querySelector(".gallery").innerHTML = "";
   affichageTravaux(travauxAppartements);
 });
+
+
 // Filtre tous
 boutonTous.addEventListener("click", function () {
   document.querySelector(".gallery").innerHTML = "";
-  affichageTravaux(travaux);
+  affichageTravaux(mesTravaux);
 });
+
+
